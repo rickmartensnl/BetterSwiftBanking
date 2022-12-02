@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>nl.rickmartens.betterswiftbanking.models.holders.Holder</OriginalElement>
+  <nodes>
+    <node x="1244.75" y="558.0">nl.rickmartens.betterswiftbanking.models.money.Digital</node>
+    <node x="180.43611111111113" y="16.0">nl.rickmartens.betterswiftbanking.models.holders.Holder</node>
+    <node x="881.2222222222223" y="284.0">nl.rickmartens.betterswiftbanking.models.money.Money</node>
+    <node x="246.00000000000006" y="241.0">nl.rickmartens.betterswiftbanking.models.holders.Country</node>
+    <node x="273.4722222222223" y="769.0">nl.rickmartens.betterswiftbanking.models.account.Account</node>
+    <node x="607.75" y="530.0">nl.rickmartens.betterswiftbanking.models.money.Cash</node>
+    <node x="882.75" y="516.0">nl.rickmartens.betterswiftbanking.models.account.Transaction</node>
+    <node x="-68.0" y="213.0">nl.rickmartens.betterswiftbanking.models.account.Freeze</node>
+    <node x="464.0" y="-14.0">nl.rickmartens.betterswiftbanking.models.money.Currency</node>
+    <node x="175.75000000000006" y="530.0">nl.rickmartens.betterswiftbanking.models.holders.Bank</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="nl.rickmartens.betterswiftbanking.models.money.Cash" target="nl.rickmartens.betterswiftbanking.models.holders.Country" relationship="TO_ONE">
+      <point x="-63.75" y="-86.5" />
+      <point x="671.5" y="494.0" />
+      <point x="566.5" y="494.0" />
+      <point x="566.5" y="484.0" />
+      <point x="401.00000000000006" y="484.0" />
+      <point x="0.0" y="86.5" />
+    </edge>
+    <edge source="nl.rickmartens.betterswiftbanking.models.account.Account" target="nl.rickmartens.betterswiftbanking.models.account.Freeze" relationship="TO_MANY">
+      <point x="0.0" y="-241.5" />
+      <point x="430.9722222222223" y="743.0" />
+      <point x="78.5" y="743.0" />
+      <point x="0.0" y="114.5" />
+    </edge>
+    <edge source="nl.rickmartens.betterswiftbanking.models.account.Transaction" target="nl.rickmartens.betterswiftbanking.models.account.Account" relationship="TO_ONE">
+      <point x="0.0" y="100.5" />
+      <point x="1053.75" y="743.0" />
+      <point x="430.9722222222223" y="743.0" />
+      <point x="0.0" y="-241.5" />
+    </edge>
+    <edge source="nl.rickmartens.betterswiftbanking.models.money.Digital" target="nl.rickmartens.betterswiftbanking.models.money.Money" relationship="REALIZATION">
+      <point x="-51.75" y="-58.5" />
+      <point x="1296.5" y="474.0" />
+      <point x="1184.4111111111113" y="474.0" />
+      <point x="1184.4111111111113" y="464.0" />
+      <point x="1002.7222222222222" y="464.0" />
+      <point x="40.5" y="43.5" />
+    </edge>
+    <edge source="nl.rickmartens.betterswiftbanking.models.account.Account" target="nl.rickmartens.betterswiftbanking.models.holders.Bank" relationship="TO_ONE">
+      <point x="0.0" y="-241.5" />
+      <point x="430.9722222222223" y="743.0" />
+      <point x="318.25000000000006" y="743.0" />
+      <point x="0.0" y="86.5" />
+    </edge>
+    <edge source="nl.rickmartens.betterswiftbanking.models.account.Account" target="nl.rickmartens.betterswiftbanking.models.account.Transaction" relationship="TO_MANY">
+      <point x="0.0" y="-241.5" />
+      <point x="430.9722222222223" y="743.0" />
+      <point x="1053.75" y="743.0" />
+      <point x="0.0" y="100.5" />
+    </edge>
+    <edge source="nl.rickmartens.betterswiftbanking.models.money.Digital" target="nl.rickmartens.betterswiftbanking.models.money.Currency" relationship="TO_ONE">
+      <point x="51.75" y="-58.5" />
+      <point x="1400.0" y="494.0" />
+      <point x="1353.25" y="494.0" />
+      <point x="1353.25" y="192.0" />
+      <point x="566.5" y="192.0" />
+      <point x="0.0" y="87.5" />
+    </edge>
+    <edge source="nl.rickmartens.betterswiftbanking.models.holders.Bank" target="nl.rickmartens.betterswiftbanking.models.holders.Holder" relationship="REALIZATION">
+      <point x="-71.25" y="-86.5" />
+      <point x="247.00000000000006" y="494.0" />
+      <point x="235.50000000000006" y="494.0" />
+      <point x="235.50000000000006" y="192.0" />
+      <point x="332.43611111111113" y="192.0" />
+      <point x="332.43611111111113" y="182.0" />
+      <point x="290.68611111111113" y="182.0" />
+      <point x="36.75" y="57.5" />
+    </edge>
+    <edge source="nl.rickmartens.betterswiftbanking.models.holders.Country" target="nl.rickmartens.betterswiftbanking.models.money.Currency" relationship="TO_ONE">
+      <point x="77.5" y="-86.5" />
+      <point x="478.5" y="192.0" />
+      <point x="566.5" y="192.0" />
+      <point x="0.0" y="87.5" />
+    </edge>
+    <edge source="nl.rickmartens.betterswiftbanking.models.account.Freeze" target="nl.rickmartens.betterswiftbanking.models.holders.Holder" relationship="TO_ONE">
+      <point x="0.0" y="-114.5" />
+      <point x="78.5" y="192.0" />
+      <point x="217.18611111111113" y="192.0" />
+      <point x="-36.75" y="57.5" />
+    </edge>
+    <edge source="nl.rickmartens.betterswiftbanking.models.money.Cash" target="nl.rickmartens.betterswiftbanking.models.money.Currency" relationship="TO_ONE">
+      <point x="-63.75" y="-86.5" />
+      <point x="671.5" y="494.0" />
+      <point x="566.5" y="494.0" />
+      <point x="0.0" y="87.5" />
+    </edge>
+    <edge source="nl.rickmartens.betterswiftbanking.models.holders.Country" target="nl.rickmartens.betterswiftbanking.models.holders.Holder" relationship="REALIZATION">
+      <point x="-77.5" y="-86.5" />
+      <point x="323.50000000000006" y="192.0" />
+      <point x="332.43611111111113" y="192.0" />
+      <point x="332.43611111111113" y="182.0" />
+      <point x="290.68611111111113" y="182.0" />
+      <point x="36.75" y="57.5" />
+    </edge>
+    <edge source="nl.rickmartens.betterswiftbanking.models.account.Transaction" target="nl.rickmartens.betterswiftbanking.models.money.Money" relationship="TO_ONE">
+      <point x="0.0" y="-100.5" />
+      <point x="1053.75" y="484.0" />
+      <point x="704.1861111111111" y="484.0" />
+      <point x="704.1861111111111" y="464.0" />
+      <point x="921.7222222222223" y="464.0" />
+      <point x="-40.5" y="43.5" />
+    </edge>
+    <edge source="nl.rickmartens.betterswiftbanking.models.money.Cash" target="nl.rickmartens.betterswiftbanking.models.money.Money" relationship="REALIZATION">
+      <point x="63.75" y="-86.5" />
+      <point x="799.0" y="474.0" />
+      <point x="1184.4111111111113" y="474.0" />
+      <point x="1184.4111111111113" y="464.0" />
+      <point x="1002.7222222222222" y="464.0" />
+      <point x="40.5" y="43.5" />
+    </edge>
+    <edge source="nl.rickmartens.betterswiftbanking.models.holders.Bank" target="nl.rickmartens.betterswiftbanking.models.holders.Country" relationship="TO_ONE">
+      <point x="71.25" y="-86.5" />
+      <point x="389.50000000000006" y="494.0" />
+      <point x="401.00000000000006" y="494.0" />
+      <point x="0.0" y="86.5" />
+    </edge>
+    <edge source="nl.rickmartens.betterswiftbanking.models.account.Account" target="nl.rickmartens.betterswiftbanking.models.money.Money" relationship="TO_ONE">
+      <point x="0.0" y="-241.5" />
+      <point x="430.9722222222223" y="743.0" />
+      <point x="597.25" y="743.0" />
+      <point x="597.25" y="484.0" />
+      <point x="704.1861111111111" y="484.0" />
+      <point x="704.1861111111111" y="464.0" />
+      <point x="921.7222222222223" y="464.0" />
+      <point x="-40.5" y="43.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.4470404984423676" showDependencies="true" x="692.0000000000001" y="618.0000000000001" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

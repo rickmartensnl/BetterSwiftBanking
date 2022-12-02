@@ -1,8 +1,11 @@
 package nl.rickmartens.betterswiftbanking.models
 
+import kotlinx.datetime.*
+import nl.rickmartens.betterswiftbanking.models.account.Freeze
 import nl.rickmartens.betterswiftbanking.models.holders.Bank
 import nl.rickmartens.betterswiftbanking.models.holders.Country
 import nl.rickmartens.betterswiftbanking.models.money.Currency
+import kotlin.time.Duration
 
 fun main() {
     val country = Country("Netherlands, the", "NL", Currency.USD)
@@ -17,4 +20,27 @@ fun main() {
 
     println(bank.name)
     println(bank.code)
+
+    val freeze = Freeze("No", bank, null)
+
+    println(freeze.active)
+    println()
+
+    freeze.until = Clock.System.now().plus(Duration.parse("1s")).toLocalDateTime(TimeZone.UTC)
+
+    println(freeze.active)
+
+    Thread.sleep(1000)
+
+    println(freeze.active)
+    println()
+
+    freeze.until = Clock.System.now().plus(Duration.parse("5s")).toLocalDateTime(TimeZone.UTC)
+    println(freeze.active)
+    freeze.active = false
+    println(freeze.active)
+
+    Thread.sleep(5000)
+
+    println(freeze.active)
 }
