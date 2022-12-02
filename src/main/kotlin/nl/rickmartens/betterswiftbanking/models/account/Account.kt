@@ -48,6 +48,7 @@ class Account {
         TODO("Implement freeze code")
     }
 
+}
     fun unfreezeById(freezeId: UUID) {
         TODO("Implement freeze code")
     }
