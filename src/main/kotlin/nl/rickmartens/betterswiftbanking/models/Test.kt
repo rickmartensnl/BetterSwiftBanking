@@ -1,5 +1,9 @@
 package nl.rickmartens.betterswiftbanking.models
 
+import nl.rickmartens.betterswiftbanking.models.holders.Bank
+import nl.rickmartens.betterswiftbanking.models.holders.Country
+import nl.rickmartens.betterswiftbanking.models.money.Currency
+
 fun main() {
     val country = Country("Netherlands, the", "NL", Currency.USD)
 

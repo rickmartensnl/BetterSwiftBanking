@@ -1,4 +1,4 @@
-package nl.rickmartens.betterswiftbanking.models
+package nl.rickmartens.betterswiftbanking.models.money
 
 enum class Currency(val valueToUsd: Double, val fullName: String) {
 

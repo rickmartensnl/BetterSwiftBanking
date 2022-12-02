@@ -1,4 +1,4 @@
-package nl.rickmartens.betterswiftbanking.models
+package nl.rickmartens.betterswiftbanking.models.holders
 
 interface Holder {
 
