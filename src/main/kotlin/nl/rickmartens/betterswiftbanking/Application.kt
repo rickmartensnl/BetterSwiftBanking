@@ -7,7 +7,6 @@ import nl.rickmartens.betterswiftbanking.plugins.configureHTTP
 import nl.rickmartens.betterswiftbanking.plugins.configureMonitoring
 import nl.rickmartens.betterswiftbanking.plugins.configureSerialization
 import nl.rickmartens.betterswiftbanking.plugins.configureStatusPages
-import nl.voedselen.plugins.*
 import nl.rickmartens.betterswiftbanking.routes.registerApiRoutes
 import nl.rickmartens.betterswiftbanking.service.ExampleServiceImpl
 
