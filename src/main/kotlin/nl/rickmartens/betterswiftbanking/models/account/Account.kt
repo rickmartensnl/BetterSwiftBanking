@@ -7,12 +7,8 @@ import nl.rickmartens.betterswiftbanking.models.money.Cash
 import nl.rickmartens.betterswiftbanking.models.money.Money
 import java.util.UUID
 
-class Account {
+class Account(val id: Long, val bank: Bank, var owner: String, val money: Money) {
 
-    val id: Long = TODO()
-    val bank: Bank = TODO()
-    val owner: String = TODO()
-    val money: Money = TODO()
     val frozenHistory: Map<UUID, Freeze> = emptyMap()
     val transactionHistory: Array<Transaction> = arrayOf()
     val iban: () -> IBAN
@@ -48,8 +44,8 @@ class Account {
         TODO("Implement freeze code")
     }
 
-}
     fun unfreezeById(freezeId: UUID) {
         TODO("Implement freeze code")
     }
 
+}
