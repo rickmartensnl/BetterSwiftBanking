@@ -52,4 +52,3 @@ class Account {
         TODO("Implement freeze code")
     }
 
-}
