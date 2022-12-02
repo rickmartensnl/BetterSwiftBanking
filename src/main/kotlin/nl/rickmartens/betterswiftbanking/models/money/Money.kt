@@ -2,7 +2,7 @@ package nl.rickmartens.betterswiftbanking.models.money
 
 interface Money {
 
-    val amount: Double
+    var amount: Double
     val currency: Currency
 
 }
