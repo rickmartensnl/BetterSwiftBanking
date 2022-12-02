@@ -1,4 +1,4 @@
-package nl.voedselen.service
+package nl.rickmartens.betterswiftbanking.service
 
 import io.ktor.server.application.*
 

@@ -1,4 +1,4 @@
-package nl.voedselen.plugins
+package nl.rickmartens.betterswiftbanking.plugins
 
 import io.ktor.http.*
 import io.ktor.server.plugins.cors.routing.*

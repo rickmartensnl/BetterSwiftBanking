@@ -1,4 +1,4 @@
-package nl.voedselen
+package nl.rickmartens.betterswiftbanking
 
 import io.ktor.server.routing.*
 import io.ktor.http.*
@@ -21,10 +21,14 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlin.test.*
 import io.ktor.server.testing.*
+import nl.rickmartens.betterswiftbanking.plugins.configureHTTP
+import nl.rickmartens.betterswiftbanking.plugins.configureMonitoring
+import nl.rickmartens.betterswiftbanking.plugins.configureSerialization
+import nl.rickmartens.betterswiftbanking.plugins.configureStatusPages
 import nl.voedselen.plugins.*
 import nl.voedselen.routes.registerExampleRoutes
 import nl.voedselen.security.JwtAuthentication
-import nl.voedselen.service.ExampleServiceImpl
+import nl.rickmartens.betterswiftbanking.service.ExampleServiceImpl
 import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
 

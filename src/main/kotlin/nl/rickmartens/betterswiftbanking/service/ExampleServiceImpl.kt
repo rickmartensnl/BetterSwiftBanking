@@ -1,13 +1,9 @@
-package nl.voedselen.service
+package nl.rickmartens.betterswiftbanking.service
 
 import io.ktor.server.application.*
-import nl.voedselen.models.User
-import org.litote.kmongo.coroutine.CoroutineDatabase
 
 // TODO: Rename to service.
-class ExampleServiceImpl(private val db: CoroutineDatabase) : ExampleService {
-	
-	private val collection = db.getCollection<User>()
+class ExampleServiceImpl : ExampleService {
 	
 	override suspend fun getExampleById(call: ApplicationCall) {
 		TODO("Not yet implemented")

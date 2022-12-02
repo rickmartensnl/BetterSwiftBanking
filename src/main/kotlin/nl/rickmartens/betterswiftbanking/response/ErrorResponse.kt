@@ -1,4 +1,4 @@
-package nl.voedselen.response
+package nl.rickmartens.betterswiftbanking.response
 
 import io.ktor.http.*
 import io.ktor.server.application.*

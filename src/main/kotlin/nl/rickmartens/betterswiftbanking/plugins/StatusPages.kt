@@ -1,12 +1,12 @@
-package nl.voedselen.plugins
+package nl.rickmartens.betterswiftbanking.plugins
 
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.plugins.requestvalidation.*
 import io.ktor.server.plugins.statuspages.*
-import nl.voedselen.response.ErrorResponse
-import nl.voedselen.response.Opcodes
+import nl.rickmartens.betterswiftbanking.response.ErrorResponse
+import nl.rickmartens.betterswiftbanking.response.Opcodes
 
 fun Application.configureStatusPages() {
 	
