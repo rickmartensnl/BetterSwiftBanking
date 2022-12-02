@@ -17,8 +17,7 @@ class Account {
     val transactionHistory: Array<Transaction> = arrayOf()
     val iban: () -> IBAN
         get() = {
-            TODO("Calculate IBAN.")
-            IBAN()
+            IBAN(this)
         }
     val frozen: () -> Boolean
         get() = {
