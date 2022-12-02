@@ -1,6 +1,5 @@
 package nl.rickmartens.betterswiftbanking.models.account
 
-import nl.rickmartens.betterswiftbanking.models.account.Account
 import nl.rickmartens.betterswiftbanking.models.money.Money
 import java.util.*
 
