@@ -1,2 +1,2 @@
 // TODO: Rename to service.
-rootProject.name = "Example Service"
+rootProject.name = "Better Swift Banking"
