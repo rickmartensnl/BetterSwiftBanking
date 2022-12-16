@@ -17,7 +17,14 @@ class Account(val id: Long, val bank: Bank, var owner: String, val money: Money)
         }
     val frozen: () -> Boolean
         get() = {
-            TODO("Check whether the account is frozen.")
+            var result = false
+            frozenHistory.forEach {
+                if (it.value.active) {
+                    result = true
+                }
+            }
+
+            result
         }
 
     fun transfer(target: IBAN, amount: Int) {
