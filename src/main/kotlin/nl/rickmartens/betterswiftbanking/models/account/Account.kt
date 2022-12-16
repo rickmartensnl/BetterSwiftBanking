@@ -10,13 +10,13 @@ import java.util.UUID
 class Account(val id: Long, val bank: Bank, var owner: String, val money: Money) {
 
     val frozenHistory: Map<UUID, Freeze> = emptyMap()
-    val transactionHistory: Array<Transaction> = arrayOf()
-    val iban: () -> IBAN
-        get() = {
-            IBAN(this)
+    var transactionHistory: List<Transaction> = listOf()
+    val iban: IBAN
+        get() {
+            return IBAN(this)
         }
-    val frozen: () -> Boolean
-        get() = {
+    val frozen: Boolean
+        get() {
             var result = false
             frozenHistory.forEach {
                 if (it.value.active) {
@@ -24,7 +24,7 @@ class Account(val id: Long, val bank: Bank, var owner: String, val money: Money)
                 }
             }
 
-            result
+            return result
         }
 
     fun transfer(target: IBAN, amount: Int) {
