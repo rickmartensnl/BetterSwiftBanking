@@ -39,8 +39,8 @@ fun main() {
 
 class Account(val id: Long, val bank: Bank, var owner: String, val money: Digital) {
 
-    val frozenHistory: Map<UUID, Freeze> = emptyMap()
-    var transactionHistory: List<Transaction> = listOf()
+    val frozenHistory: MutableMap<UUID, Freeze> = mutableMapOf()
+    val transactionHistory: MutableList<Transaction> = mutableListOf()
     val iban: IBAN
         get() {
             return IBAN(this)
