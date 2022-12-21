@@ -17,63 +17,6 @@ import nl.rickmartens.betterswiftbanking.models.money.Money
 import nl.rickmartens.betterswiftbanking.utils.exchangeCurrency
 import java.util.UUID
 
-fun main() {
-    val nl = Country("NL", "NL", Currency.EUR)
-    val us = Country("US", "US", Currency.USD)
-    val bank = Bank("ING", "INGB", nl)
-    val bank2 = Bank("ING", "INGB", us)
-    val account = Account(1, bank, "Me", Digital(100.0, bank.country.currency))
-    val account2 = Account(2, bank2, "Me2", Digital(0.0, bank2.country.currency))
-
-    val cash = account.withdraw(10.0, us)
-    if (cash != null) {
-        println("Account ${account.money.currency.name}: ${account.money.amount}")
-        println("Cash money ${cash.currency.name}: ${cash.amount}")
-
-        account2.deposit(cash)
-        println("Account2 ${account2.money.currency.name}: ${account2.money.amount}")
-    } else {
-        println("Cannot do cash checks")
-    }
-
-    val cash2 = account2.withdraw(10.5, us)
-    if (cash2 != null) {
-        println("Account2 ${account2.money.currency.name}: ${account2.money.amount}")
-        println("Cash money ${cash2.currency.name}: ${cash2.amount}")
-
-        account.deposit(cash2)
-        println("Account ${account.money.currency.name}: ${account.money.amount}")
-    } else {
-        println("Cannot do cash2 checks")
-    }
-
-    println()
-    val freeze = account.freeze("Test", bank)
-    try {
-        println(account.freeze("Test", bank2))
-    } catch (e: IllegalArgumentException) {
-        println("Could not freeze. ${e.message}")
-    }
-    println("Account frozen?: ${account.frozen}")
-    account.unfreeze()
-    println("Account frozen?: ${account.frozen}")
-
-    val freeze2 = account.freeze("Test", nl)
-    val freeze3 = account.freeze("Test", bank)
-    try {
-        println(account.freeze("Test", us))
-    } catch (e: IllegalArgumentException) {
-        println("Could not freeze. ${e.message}")
-    }
-    println("Account frozen?: ${account.frozen}")
-    account.unfreezeById(freeze2.id)
-    println("Account frozen?: ${account.frozen}")
-    account.unfreeze()
-    println("Account frozen?: ${account.frozen}")
-
-
-}
-
 class Account(val id: Long, val bank: Bank, var owner: String, val money: Digital) {
 
     val frozenHistory: MutableMap<UUID, Freeze> = mutableMapOf()
