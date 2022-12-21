@@ -35,6 +35,22 @@ fun main() {
 
     account.deposit(cash2)
     println("Account ${account.money.currency.name}: ${account.money.amount}")
+
+    val freeze = account.freeze("Test", bank)
+    try {
+        println(account.freeze("Test", bank2))
+    } catch (e: IllegalArgumentException) {
+        println("Could not freeze. ${e.message}")
+    }
+    println("Account frozen?: ${account.frozen}")
+    val freeze2 = account.freeze("Test", nl)
+    val freeze3 = account.freeze("Test", bank)
+    try {
+        println(account.freeze("Test", us))
+    } catch (e: IllegalArgumentException) {
+        println("Could not freeze. ${e.message}")
+    }
+    println("Account frozen?: ${account.frozen}")
 }
 
 class Account(val id: Long, val bank: Bank, var owner: String, val money: Digital) {
@@ -65,13 +81,16 @@ class Account(val id: Long, val bank: Bank, var owner: String, val money: Digita
         val digital = Digital(amount, currency)
         println("Transfer has currency: ${currency.name}")
         val transaction = Transaction(this, account, digital, description)
+        // TODO: Surround with try catch.
         removeMoney(digital)
         transactionHistory += transaction
+        // TODO: Surround with try catch.
         account.addMoney(digital)
         account.transactionHistory += transaction
     }
 
     private fun addMoney(money: Money) {
+        // TODO: Check for if the bank, or country has been banned.
         if (frozen) {
             throw AccountFrozenException()
         }
@@ -86,6 +105,7 @@ class Account(val id: Long, val bank: Bank, var owner: String, val money: Digita
     }
 
     private fun removeMoney(money: Money) {
+        // TODO: Check for if the bank, or country has been banned.
         if (frozen) {
             throw AccountFrozenException()
         }
@@ -108,6 +128,7 @@ class Account(val id: Long, val bank: Bank, var owner: String, val money: Digita
         val cash = Cash(newAmount, country.currency, country)
 
         val transaction = Transaction(this, null, cash, "Withdrawal of cash.")
+        // TODO: Surround with try catch.
         removeMoney(cash)
         transactionHistory += transaction
 
@@ -116,12 +137,29 @@ class Account(val id: Long, val bank: Bank, var owner: String, val money: Digita
 
     fun deposit(cash: Cash) {
         val transaction = Transaction(null, this, cash, "Deposit of cash.")
+        // TODO: Surround with try catch.
         addMoney(cash)
         transactionHistory += transaction
     }
 
-    fun freeze(reason: String, executor: Holder, until: LocalDateTime? = null) {
-        TODO("Implement freeze code")
+    fun freeze(reason: String, executor: Holder, until: LocalDateTime? = null): Freeze {
+        // TODO: Clean up code to be simplified.
+        if (executor != bank) {
+            if (executor is Country) {
+                if (executor != bank.country) {
+                    throw IllegalArgumentException("Can't freeze account if country is not the account's country.")
+                }
+            } else {
+                throw IllegalArgumentException("Can't freeze account if bank is not the account's bank.")
+            }
+        }
+
+        // TODO: Prevent freezing when until <= now.
+
+        val freeze = Freeze(reason, executor, until)
+        frozenHistory[freeze.id] = freeze
+
+        return freeze
     }
 
     fun unfreeze() {
