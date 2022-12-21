@@ -43,6 +43,9 @@ fun main() {
         println("Could not freeze. ${e.message}")
     }
     println("Account frozen?: ${account.frozen}")
+    account.unfreeze()
+    println("Account frozen?: ${account.frozen}")
+
     val freeze2 = account.freeze("Test", nl)
     val freeze3 = account.freeze("Test", bank)
     try {
@@ -51,6 +54,12 @@ fun main() {
         println("Could not freeze. ${e.message}")
     }
     println("Account frozen?: ${account.frozen}")
+    account.unfreezeById(freeze2.id)
+    println("Account frozen?: ${account.frozen}")
+    account.unfreeze()
+    println("Account frozen?: ${account.frozen}")
+
+
 }
 
 class Account(val id: Long, val bank: Bank, var owner: String, val money: Digital) {
@@ -163,11 +172,26 @@ class Account(val id: Long, val bank: Bank, var owner: String, val money: Digita
     }
 
     fun unfreeze() {
-        TODO("Implement freeze code")
+        if (!frozen) {
+            return
+        }
+
+        frozenHistory.forEach {
+            it.value.active = false
+        }
     }
 
     fun unfreezeById(freezeId: UUID) {
-        TODO("Implement freeze code")
+        if (!frozen) {
+            return
+        }
+
+        val freeze = frozenHistory[freezeId]
+        if (freeze != null) {
+            freeze.active = false
+        } else {
+            throw IllegalArgumentException("Could not find freeze by id.")
+        }
     }
 
 }
