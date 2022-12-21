@@ -1,9 +1,9 @@
 package nl.rickmartens.betterswiftbanking.models.account
 
 import kotlinx.datetime.LocalDateTime
-import nl.rickmartens.betterswiftbanking.exceptions.AccountFrozenException
-import nl.rickmartens.betterswiftbanking.exceptions.InvalidBalanceException
-import nl.rickmartens.betterswiftbanking.exceptions.NoBalanceException
+import nl.rickmartens.betterswiftbanking.exceptions.frozen.AccountFrozenException
+import nl.rickmartens.betterswiftbanking.exceptions.balance.InvalidBalanceException
+import nl.rickmartens.betterswiftbanking.exceptions.balance.NoBalanceException
 import nl.rickmartens.betterswiftbanking.models.holders.Bank
 import nl.rickmartens.betterswiftbanking.models.holders.Country
 import nl.rickmartens.betterswiftbanking.models.holders.Holder
