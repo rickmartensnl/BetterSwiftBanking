@@ -4,6 +4,9 @@ import kotlinx.datetime.LocalDateTime
 import nl.rickmartens.betterswiftbanking.exceptions.frozen.AccountFrozenException
 import nl.rickmartens.betterswiftbanking.exceptions.balance.InvalidBalanceException
 import nl.rickmartens.betterswiftbanking.exceptions.balance.NoBalanceException
+import nl.rickmartens.betterswiftbanking.exceptions.frozen.BankFrozenException
+import nl.rickmartens.betterswiftbanking.exceptions.frozen.CountryFrozenException
+import nl.rickmartens.betterswiftbanking.exceptions.frozen.FrozenException
 import nl.rickmartens.betterswiftbanking.models.holders.Bank
 import nl.rickmartens.betterswiftbanking.models.holders.Country
 import nl.rickmartens.betterswiftbanking.models.holders.Holder
@@ -23,19 +26,28 @@ fun main() {
     val account2 = Account(2, bank2, "Me2", Digital(0.0, bank2.country.currency))
 
     val cash = account.withdraw(10.0, us)
-    println("Account ${account.money.currency.name}: ${account.money.amount}")
-    println("Cash money ${cash.currency.name}: ${cash.amount}")
+    if (cash != null) {
+        println("Account ${account.money.currency.name}: ${account.money.amount}")
+        println("Cash money ${cash.currency.name}: ${cash.amount}")
 
-    account2.deposit(cash)
-    println("Account2 ${account2.money.currency.name}: ${account2.money.amount}")
+        account2.deposit(cash)
+        println("Account2 ${account2.money.currency.name}: ${account2.money.amount}")
+    } else {
+        println("Cannot do cash checks")
+    }
 
     val cash2 = account2.withdraw(10.5, us)
-    println("Account2 ${account2.money.currency.name}: ${account2.money.amount}")
-    println("Cash money ${cash2.currency.name}: ${cash2.amount}")
+    if (cash2 != null) {
+        println("Account2 ${account2.money.currency.name}: ${account2.money.amount}")
+        println("Cash money ${cash2.currency.name}: ${cash2.amount}")
 
-    account.deposit(cash2)
-    println("Account ${account.money.currency.name}: ${account.money.amount}")
+        account.deposit(cash2)
+        println("Account ${account.money.currency.name}: ${account.money.amount}")
+    } else {
+        println("Cannot do cash2 checks")
+    }
 
+    println()
     val freeze = account.freeze("Test", bank)
     try {
         println(account.freeze("Test", bank2))
@@ -86,23 +98,33 @@ class Account(val id: Long, val bank: Bank, var owner: String, val money: Digita
         TODO("Implement transfer code")
     }
 
-    fun transfer(account: Account, amount: Double, description: String = "Money transfer.", currency: Currency = money.currency) {
+    fun transfer(account: Account, amount: Double, description: String = "Money transfer.", currency: Currency = money.currency): Boolean {
         val digital = Digital(amount, currency)
         println("Transfer has currency: ${currency.name}")
         val transaction = Transaction(this, account, digital, description)
-        // TODO: Surround with try catch.
-        removeMoney(digital)
-        transactionHistory += transaction
-        // TODO: Surround with try catch.
-        account.addMoney(digital)
-        account.transactionHistory += transaction
+        try {
+            removeMoney(digital)
+            transactionHistory += transaction
+        } catch (e: FrozenException) {
+            println("Cannot transfer money, executor account: ${e.message}")
+            return false
+        }
+
+        try {
+            account.addMoney(digital)
+            account.transactionHistory += transaction
+        } catch (e: FrozenException) {
+            println("Cannot transfer money, target account: ${e.message}")
+            addMoney(digital)
+            transactionHistory.removeLast()
+            return false
+        }
+
+        return true
     }
 
     private fun addMoney(money: Money) {
-        // TODO: Check for if the bank, or country has been banned.
-        if (frozen) {
-            throw AccountFrozenException()
-        }
+        frozenScan()
 
         val amount = exchangeCurrency(money.amount, money.currency, this.money.currency)
 
@@ -114,10 +136,7 @@ class Account(val id: Long, val bank: Bank, var owner: String, val money: Digita
     }
 
     private fun removeMoney(money: Money) {
-        // TODO: Check for if the bank, or country has been banned.
-        if (frozen) {
-            throw AccountFrozenException()
-        }
+        frozenScan()
 
         val amount = exchangeCurrency(money.amount, money.currency, this.money.currency)
 
@@ -132,23 +151,45 @@ class Account(val id: Long, val bank: Bank, var owner: String, val money: Digita
         this.money.amount -= amount
     }
 
-    fun withdraw(amount: Double, country: Country = bank.country): Cash {
+    private fun frozenScan() {
+        if (bank.country.banned) {
+            throw CountryFrozenException()
+        }
+        if (bank.banned) {
+            throw BankFrozenException()
+        }
+        if (frozen) {
+            throw AccountFrozenException()
+        }
+    }
+
+    fun withdraw(amount: Double, country: Country = bank.country): Cash? {
         val newAmount = exchangeCurrency(amount, money.currency, country.currency)
         val cash = Cash(newAmount, country.currency, country)
 
         val transaction = Transaction(this, null, cash, "Withdrawal of cash.")
-        // TODO: Surround with try catch.
-        removeMoney(cash)
+        try {
+            removeMoney(cash)
+        } catch (e: FrozenException) {
+            println("Cannot withdraw money: ${e.message}")
+            return null
+        }
         transactionHistory += transaction
 
         return cash
     }
 
-    fun deposit(cash: Cash) {
+    fun deposit(cash: Cash): Boolean {
         val transaction = Transaction(null, this, cash, "Deposit of cash.")
-        // TODO: Surround with try catch.
-        addMoney(cash)
+        try {
+            addMoney(cash)
+        } catch (e: FrozenException) {
+            println("Cannot withdraw money: ${e.message}")
+            return false
+        }
+
         transactionHistory += transaction
+        return true
     }
 
     fun freeze(reason: String, executor: Holder, until: LocalDateTime? = null): Freeze {
